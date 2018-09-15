@@ -1,5 +1,7 @@
 package com.pl.recipeproject.service;
 
+import com.pl.recipeproject.converters.RecipeCommandToRecipe;
+import com.pl.recipeproject.converters.RecipeToRecipeCommand;
 import com.pl.recipeproject.domain.Recipe;
 import com.pl.recipeproject.repositories.RecipeRepository;
 import org.junit.Before;
@@ -21,6 +23,12 @@ public class RecipeServiceImplTest {
 
     @Mock
     RecipeRepository recipeRepository;
+
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
 
     @Before
     public void setUp(){
