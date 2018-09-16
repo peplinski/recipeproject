@@ -24,13 +24,15 @@ public class IngredientControllerTest {
     MockMvc mockMvc;
 
     @Before
-    public void setUp(){
-        MockitoAnnotations.initMocks(recipeService);
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+
+        controller = new IngredientController( recipeService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @Test
-    public void testListIngerdients()throws Exception{
+    public void testListIngredients() throws Exception {
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
         when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
@@ -38,7 +40,7 @@ public class IngredientControllerTest {
         //when
         mockMvc.perform(get("/recipe/1/ingredients"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recipe/ingredient/lis"))
+                .andExpect(view().name("recipe/ingredient/list"))
                 .andExpect(model().attributeExists("recipe"));
 
         //then
