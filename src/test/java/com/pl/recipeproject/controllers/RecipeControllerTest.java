@@ -2,6 +2,7 @@ package com.pl.recipeproject.controllers;
 
 import com.pl.recipeproject.commands.RecipeCommand;
 import com.pl.recipeproject.domain.Recipe;
+import com.pl.recipeproject.exceptions.NotFoundException;
 import com.pl.recipeproject.service.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,6 +58,18 @@ public class RecipeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/recipeform"))
                 .andExpect(model().attributeExists("recipe"));
+    }
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception{
+
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("recipe/1/show"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
